@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_componentes/src/pages/home_page.dart';
+import 'package:flutter_componentes/src/pages/alert_page.dart';
+import 'package:flutter_componentes/src/routes/routes.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Componentes APP',
       debugShowCheckedModeBanner: false,
-      home: HomePage()
+      // home: HomePage(),
+      initialRoute: '/',
+      routes: getApplicationRoutes(),
+      onGenerateRoute: (RouteSettings settings) {
+        print('Ruta llamada: ${settings.name}');
+
+        return MaterialPageRoute(
+            builder: (BuildContext context) => AlertPage());
+      },
     );
   }
-} 
+}
