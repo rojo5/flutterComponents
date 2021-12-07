@@ -10,6 +10,7 @@
  class _SliderPageState extends State<SliderPage> {
 
    double _valorSlider = 100.0;
+   bool _bloquearCheck = false;
 
    @override
    Widget build(BuildContext context) {
@@ -22,6 +23,8 @@
          child: Column(
            children: [
              _crearSlider(),
+             _crearCheckBox(),
+             _crearSwitch(),
              Expanded(child: _crearImagen())
            ],
          ),
@@ -34,11 +37,11 @@
     return Slider(
       activeColor: Colors.indigoAccent,
       label: 'Tamaño de la imagen',
-      // divisions: 20, 
+      // divisions: 20,  
       value: _valorSlider,
       min: 10.0,
       max: 400.0, 
-      onChanged: (double  valor) {
+      onChanged: (_bloquearCheck) ? null : (double  valor) {
         setState(() {
           _valorSlider = valor;
         });
@@ -49,9 +52,46 @@
   Widget _crearImagen() {
 
     return Image(
-      image: NetworkImage('https://www.cinemascomics.com/wp-content/uploads/2020/12/BABY-YODA.jpg?mrf-size=m'),
+      image: const NetworkImage('https://www.cinemascomics.com/wp-content/uploads/2020/12/BABY-YODA.jpg?mrf-size=m'),
       width: _valorSlider,
       fit: BoxFit.contain,
     );
+  }
+
+  Widget _crearCheckBox() {
+      
+      // * Dos formas de ver un checkbox
+
+      // return Checkbox(
+      //   value: _bloquearCheck,
+      //   onChanged: (valor) {
+      //     setState(() {
+      //       _bloquearCheck = valor!;
+      //     });
+      //   }
+      // );
+
+      return CheckboxListTile(
+        title: const Text('Bloquear slider'),
+        value: _bloquearCheck,
+        onChanged: (valor) {
+          setState(() {
+            _bloquearCheck = valor!;
+          });
+        }
+      );
+  }
+
+  Widget _crearSwitch() {
+    
+    return SwitchListTile(
+        title: const Text('Bloquear slider'),
+        value: _bloquearCheck,
+        onChanged: (valor) {
+          setState(() {
+            _bloquearCheck = valor;
+          });
+        }
+      );
   }
  }
